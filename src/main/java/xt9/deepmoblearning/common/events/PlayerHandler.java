@@ -134,7 +134,7 @@ public class PlayerHandler {
     @SuppressWarnings("ConstantConditions")
     private static boolean isBlock(String unlocalizedPath, Block block) {
         ResourceLocation loc = block.getRegistryName();
-        String fullPath = loc.getResourceDomain() + ":" + loc.getResourcePath();
+        String fullPath = loc.getNamespace() + ":" + loc.getPath();
 
         return fullPath.equals(unlocalizedPath);
     }

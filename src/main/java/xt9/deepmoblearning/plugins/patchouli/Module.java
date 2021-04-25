@@ -41,11 +41,11 @@ public class Module {
     public static void postInit() {
         /* Get the recipes that belong to us, check the output since other mods could have tweaked the recipe */
         ForgeRegistries.RECIPES.getEntries().forEach((r) -> {
-            if(r.getValue().getRecipeOutput().getItem().getRegistryName().getResourceDomain().equals(DeepConstants.MODID)) {
+            if(r.getValue().getRecipeOutput().getItem().getRegistryName().getNamespace().equals(DeepConstants.MODID)) {
                 dmlItemRecipes.add(r.getValue());
             }
             /* Add for blood magic addon aswell */
-            if(r.getValue().getRecipeOutput().getItem().getRegistryName().getResourceDomain().equals(ModConstants.MODID)) {
+            if(r.getValue().getRecipeOutput().getItem().getRegistryName().getNamespace().equals(ModConstants.MODID)) {
                 dmlItemRecipes.add(r.getValue());
             }
         });

@@ -47,7 +47,7 @@ public class ItemGlitchArmor extends ItemArmor {
 
     public ItemGlitchArmor(String itemName, EntityEquipmentSlot slot) {
         super(material, 0, slot);
-        setUnlocalizedName(DeepConstants.MODID + "." + itemName);
+        setTranslationKey(DeepConstants.MODID + "." + itemName);
         setCreativeTab(DeepMobLearning.creativeTab);
         setRegistryName(itemName);
     }
@@ -94,8 +94,8 @@ public class ItemGlitchArmor extends ItemArmor {
     }
 
     @Override
-    public String getUnlocalizedName(ItemStack stack) {
-        return getUnlocalizedName();
+    public String getTranslationKey(ItemStack stack) {
+        return getTranslationKey();
     }
 
     public static class ItemGlitchHelmet extends ItemGlitchArmor {

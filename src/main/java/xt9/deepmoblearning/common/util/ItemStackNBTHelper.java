@@ -28,7 +28,7 @@ public class ItemStackNBTHelper {
     public static void removeTag(ItemStack stack, String key) {
         if(hasKey(stack, key)) {
             getTag(stack).removeTag(key);
-            if(getTag(stack).hasNoTags()) {
+            if(getTag(stack).isEmpty()) {
                 stack.setTagCompound(null);
             }
         }

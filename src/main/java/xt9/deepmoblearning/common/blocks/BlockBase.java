@@ -21,7 +21,7 @@ public class BlockBase extends Block {
     public BlockBase(String name, Material material) {
         super(material);
         this.blockName = name;
-        setUnlocalizedName(DeepConstants.MODID + "." + name);
+        setTranslationKey(DeepConstants.MODID + "." + name);
         setCreativeTab(DeepMobLearning.creativeTab);
         setRegistryName(name);
         setLightLevel(1F);

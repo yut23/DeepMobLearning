@@ -17,7 +17,7 @@ public class ItemBase extends Item {
     public String itemName;
 
     public ItemBase(String name, int stackSize) {
-        setUnlocalizedName(DeepConstants.MODID + "." + name);
+        setTranslationKey(DeepConstants.MODID + "." + name);
         setCreativeTab(DeepMobLearning.creativeTab);
         setRegistryName(name);
         setMaxStackSize(stackSize);
@@ -33,7 +33,7 @@ public class ItemBase extends Item {
     }
 
     @Override
-    public String getUnlocalizedName(ItemStack stack) {
-        return getUnlocalizedName();
+    public String getTranslationKey(ItemStack stack) {
+        return getTranslationKey();
     }
 }

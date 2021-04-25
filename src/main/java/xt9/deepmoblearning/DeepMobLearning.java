@@ -114,13 +114,13 @@ public class DeepMobLearning {
 
         @SideOnly(Side.CLIENT)
         @Override
-        public ItemStack getTabIconItem() {
+        public ItemStack createIcon() {
             return ItemStack.EMPTY;
         }
 
         @SideOnly(Side.CLIENT)
         @Override
-        public ItemStack getIconItemStack() {
+        public ItemStack getIcon() {
             return new ItemStack(Registry.deepLearner);
         }
     };

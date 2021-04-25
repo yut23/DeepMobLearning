@@ -45,7 +45,7 @@ public class ItemGlitchSword extends ItemSword {
     public ItemGlitchSword() {
         super(material);
         String itemName = "glitch_infused_sword";
-        setUnlocalizedName(DeepConstants.MODID + "." + itemName);
+        setTranslationKey(DeepConstants.MODID + "." + itemName);
         setCreativeTab(DeepMobLearning.creativeTab);
         setRegistryName(itemName);
     }
@@ -112,7 +112,7 @@ public class ItemGlitchSword extends ItemSword {
     }
 
     @Override
-    public String getUnlocalizedName(ItemStack stack) {
-        return getUnlocalizedName();
+    public String getTranslationKey(ItemStack stack) {
+        return getTranslationKey();
     }
 }
