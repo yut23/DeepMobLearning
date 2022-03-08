@@ -41,6 +41,7 @@ import java.util.stream.Collectors;
 public class EntityDeathHandler {
     public static Integer blacklistCap = 1000;
     public static NonNullList<UUID> killedEntityUUIDBlacklist = NonNullList.create();
+    private static Object lock = new Object();
 
     @SubscribeEvent
     public static void dropEvent(LivingDropsEvent event) {
@@ -92,15 +93,18 @@ public class EntityDeathHandler {
     }
 
     private static void handleMobDeath(LivingDeathEvent event) {
-        if (killedEntityUUIDBlacklist.size() >= blacklistCap) {
-            cullEntityBlacklist();
+        EntityLivingBase entity = event.getEntityLiving();
+        synchronized(lock) {
+            if (killedEntityUUIDBlacklist.size() >= blacklistCap) {
+                cullEntityBlacklist();
+            }
         }
 
-        if(isEntityBlacklisted(event.getEntityLiving())) {
+        if(isEntityBlacklisted(entity.getUniqueID())) {
             return;
         }
 
-        if(event.getEntityLiving().getEntityData().hasKey(TileEntityTrialKeystone.NBT_LONG_TILE_POS)) {
+        if(entity.getEntityData().hasKey(TileEntityTrialKeystone.NBT_LONG_TILE_POS)) {
             handleTrialMobDeath(event);
         }
 
@@ -109,7 +113,9 @@ public class EntityDeathHandler {
         }
 
         /* Blacklist the entity from being used for data/trial mob count again */
-        killedEntityUUIDBlacklist.add(event.getEntityLiving().getUniqueID());
+        synchronized(lock) {
+            killedEntityUUIDBlacklist.add(entity.getUniqueID());
+        }
     }
 
     private static void cullEntityBlacklist() {
@@ -199,8 +205,10 @@ public class EntityDeathHandler {
         return result;
     }
 
-    private static boolean isEntityBlacklisted(EntityLivingBase entityLiving) {
-        return killedEntityUUIDBlacklist.stream().filter(uuid -> uuid.toString().equals(entityLiving.getUniqueID().toString())).collect(Collectors.toList()).size() > 0;
+    private static boolean isEntityBlacklisted(UUID entityLivingUUID) {
+        synchronized(lock) {
+            return killedEntityUUIDBlacklist.stream().filter(uuid -> uuid.equals(entityLivingUUID)).collect(Collectors.toList()).size() > 0;
+        }
     }
 
     private static void attuneTrialKey(ItemStack trialKey, ItemStack dataModel, LivingDeathEvent event, EntityPlayerMP player) {
